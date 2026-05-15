@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Account Guardian - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .feature-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <!-- Navigation -->
+    <nav class="glass-effect sticky top-0 z-50 border-b border-white/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <span class="text-white font-bold text-xl">AI Account Guardian</span>
+                </div>
+                <div class="hidden md:flex space-x-1">
+                    <a href="/" class="text-white bg-white/20 px-4 py-2 rounded-lg">
+                        <i data-lucide="home" class="w-4 h-4 inline mr-2"></i>Home
+                    </a>
+                    <a href="/predict" class="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10 transition-all duration-200">
+                        <i data-lucide="search" class="w-4 h-4 inline mr-2"></i>Predict
+                    </a>
+                    <a href="/graphs" class="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10 transition-all duration-200">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4 inline mr-2"></i>Graphs
+                    </a>
+                    <a href="/shap" class="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10 transition-all duration-200">
+                        <i data-lucide="brain" class="w-4 h-4 inline mr-2"></i>SHAP
+                    </a>
+                    <a href="/about" class="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10 transition-all duration-200">
+                        <i data-lucide="info" class="w-4 h-4 inline mr-2"></i>About
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Hero Section -->
+        <div class="text-center mb-16">
+            <div class="inline-flex items-center justify-center w-24 h-24 bg-white/20 rounded-3xl mb-8 float-animation">
+                <i data-lucide="shield-check" class="w-12 h-12 text-white"></i>
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                AI Account Guardian
+            </h1>
+            <p class="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto mb-12 leading-relaxed">
+                Social media platforms face a rapid increase in fake and automated accounts that spread misinformation and manipulate engagement. This project uses <strong class="text-white">Artificial Intelligence and Machine Learning</strong> to automatically detect such accounts with high accuracy.
+            </p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            <div class="feature-card bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-6 text-center">
+                <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="image" class="w-8 h-8 text-white"></i>
+                </div>
+                <h3 class="text-white font-semibold text-lg mb-3">Profile Image Analysis</h3>
+                <p class="text-white/70 text-sm leading-relaxed">
+                    Advanced CLIP model analyzes profile images for authenticity and suspicious patterns
+                </p>
+            </div>
+
+            <div class="feature-card bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-6 text-center">
+                <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="file-text" class="w-8 h-8 text-white"></i>
+                </div>
+                <h3 class="text-white font-semibold text-lg mb-3">Text Extraction</h3>
+                <p class="text-white/70 text-sm leading-relaxed">
+                    OCR technology extracts and analyzes text from profile images for metadata
+                </p>
+            </div>
+
+            <div class="feature-card bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-6 text-center">
+                <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="brain" class="w-8 h-8 text-white"></i>
+                </div>
+                <h3 class="text-white font-semibold text-lg mb-3">Machine Learning</h3>
+                <p class="text-white/70 text-sm leading-relaxed">
+                    Random Forest classifier with advanced feature engineering for accurate detection
+                </p>
+            </div>
+
+            <div class="feature-card bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-6 text-center">
+                <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="sparkles" class="w-8 h-8 text-white"></i>
+                </div>
+                <h3 class="text-white font-semibold text-lg mb-3">Explainable AI</h3>
+                <p class="text-white/70 text-sm leading-relaxed">
+                    SHAP visualizations provide insights into model decision-making process
+                </p>
+            </div>
+        </div>
+
+        <!-- Workflow Section -->
+        <div class="bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 p-8 mb-16">
+            <h2 class="text-2xl font-bold text-white mb-8 text-center flex items-center justify-center">
+                <i data-lucide="workflow" class="w-8 h-8 mr-3"></i>
+                System Workflow
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <i data-lucide="upload" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h4 class="text-white font-semibold mb-2">Image Upload</h4>
+                    <p class="text-white/60 text-sm">User uploads profile image</p>
+                </div>
+                
+                <div class="hidden md:block text-center">
+                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <i data-lucide="arrow-right" class="w-6 h-6 text-white"></i>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <i data-lucide="cpu" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h4 class="text-white font-semibold mb-2">AI Analysis</h4>
+                    <p class="text-white/60 text-sm">CLIP & OCR processing</p>
+                </div>
+                
+                <div class="hidden md:block text-center">
+                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <i data-lucide="arrow-right" class="w-6 h-6 text-white"></i>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <i data-lucide="bar-chart" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h4 class="text-white font-semibold mb-2">Classification</h4>
+                    <p class="text-white/60 text-sm">ML model prediction</p>
+                </div>
+                
+                <div class="hidden md:block text-center">
+                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <i data-lucide="arrow-right" class="w-6 h-6 text-white"></i>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <i data-lucide="eye" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h4 class="text-white font-semibold mb-2">Explainable Output</h4>
+                    <p class="text-white/60 text-sm">Detailed insights</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="text-center">
+            <a href="/predict" class="inline-flex items-center space-x-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-4 px-8 rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <i data-lucide="search" class="w-6 h-6"></i>
+                <span>Try Detection System</span>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-effect border-t border-white/20 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-white/60 text-sm mb-4 md:mb-0">
+                    2024 AI Account Guardian. Powered by advanced machine learning.
+                </div>
+                <div class="flex space-x-6">
+                    <a href="/" class="text-white/60 hover:text-white transition-colors">
+                        <i data-lucide="home" class="w-4 h-4"></i>
+                    </a>
+                    <a href="/predict" class="text-white/60 hover:text-white transition-colors">
+                        <i data-lucide="search" class="w-4 h-4"></i>
+                    </a>
+                    <a href="/graphs" class="text-white/60 hover:text-white transition-colors">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+                    </a>
+                    <a href="/shap" class="text-white/60 hover:text-white transition-colors">
+                        <i data-lucide="brain" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

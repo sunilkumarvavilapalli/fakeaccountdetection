@@ -1,0 +1,241 @@
+/* ===============================
+   GLOBAL STYLES
+=============================== */
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 900px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    margin: 40px auto;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+h1, h2, h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #555;
+    line-height: 1.6;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* ===============================
+   NAVIGATION
+=============================== */
+
+.nav {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.nav a {
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.nav a:hover {
+    background: linear-gradient(135deg, #217dbb, #1e5f8e);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+/* ===============================
+   BUTTONS & FORMS
+=============================== */
+
+form {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.file-input-wrapper {
+    position: relative;
+    margin: 20px 0;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.file-input-label {
+    display: inline-block;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+}
+
+.file-input-label:hover {
+    background: linear-gradient(135deg, #e67e22, #d35400);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
+}
+
+.analyze-btn {
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    border: none;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+    margin-top: 20px;
+}
+
+.analyze-btn:hover {
+    background: linear-gradient(135deg, #27ae60, #229954);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+}
+
+/* ===============================
+   RESULT STYLES
+=============================== */
+
+.result {
+    margin-top: 25px;
+    padding: 18px;
+    border-radius: 10px;
+    background: #f9f9f9;
+}
+
+.fake {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.genuine {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+/* ===============================
+   IMAGE PREVIEW
+=============================== */
+
+img.preview {
+    max-width: 250px;
+    margin-top: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* ===============================
+   SHAP IMAGE
+=============================== */
+
+img.shap {
+    max-width: 100%;
+    margin-top: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* ===============================
+   FOOTER
+=============================== */
+
+.footer {
+    margin-top: 40px;
+    font-size: 14px;
+    color: #777;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+/* ===============================
+   ANIMATIONS
+=============================== */
+
+.fade-in {
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+.slide-up {
+    animation: slideUp 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to   { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===============================
+   RESPONSIVE DESIGN
+=============================== */
+
+@media (max-width: 768px) {
+    .container {
+        margin: 20px;
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    .nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nav a {
+        width: 200px;
+        text-align: center;
+    }
+}

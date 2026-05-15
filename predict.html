@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Account Guardian - Fake Account Detection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .upload-zone {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .upload-zone:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .upload-zone.dragover {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+        
+        .feature-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .confidence-fill {
+            background: linear-gradient(90deg, #3b82f6 0%, #10b981 100%);
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .badge-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        .badge-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <!-- Navigation -->
+    <nav class="glass-effect sticky top-0 z-50 border-b border-white/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <span class="text-white font-bold text-xl">AI Account Guardian</span>
+                </div>
+                <div class="hidden md:flex space-x-1">
+                    <a href="/" class="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10 transition-all duration-200">
+                        <i data-lucide="home" class="w-4 h-4 inline mr-2"></i>Home
+                    </a>
+                    <a href="/predict" class="text-white bg-white/20 px-4 py-2 rounded-lg">
+                        <i data-lucide="search" class="w-4 h-4 inline mr-2"></i>Predict
+                    </a>
+                    <a href="/graphs" class="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10 transition-all duration-200">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4 inline mr-2"></i>Graphs
+                    </a>
+                    <a href="/shap" class="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10 transition-all duration-200">
+                        <i data-lucide="brain" class="w-4 h-4 inline mr-2"></i>SHAP
+                    </a>
+                    <a href="/about" class="text-white/80 hover:text-white px-4 py-2 rounded-lg hover:bg-white/10 transition-all duration-200">
+                        <i data-lucide="info" class="w-4 h-4 inline mr-2"></i>About
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="mb-8 space-y-4">
+                    {% for category, message in messages %}
+                        <div class="{% if category == 'error' %}bg-red-500/20 border-red-500/50 text-red-100{% else %}bg-green-500/20 border-green-500/50 text-green-100{% endif %} border rounded-xl p-4 backdrop-blur-sm animate-pulse">
+                            <div class="flex items-center">
+                                <i data-lucide="{% if category == 'error' %}alert-circle{% else %}check-circle{% endif %}" class="w-5 h-5 mr-3"></i>
+                                <div>
+                                    <span class="font-medium block">{{ 'Error' if category == 'error' else 'Success' }}</span>
+                                    <span class="text-sm">{{ message }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Hero Section -->
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-2xl mb-6 float-animation">
+                <i data-lucide="shield-check" class="w-10 h-10 text-white"></i>
+            </div>
+            <h1 class="text-5xl md:text-6xl font-bold text-white mb-4">
+                AI Account Guardian
+            </h1>
+            <p class="text-xl text-white/80 max-w-2xl mx-auto">
+                Advanced AI-powered fake account detection system with real-time analysis
+            </p>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="max-w-2xl mx-auto mb-12">
+            <div class="bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 p-8">
+                <form method="POST" enctype="multipart/form-data" id="uploadForm" class="space-y-6">
+                    <div class="upload-zone border-2 border-dashed border-white/30 rounded-2xl p-12 text-center cursor-pointer hover:border-white/50" id="uploadArea">
+                        <div class="space-y-4">
+                            <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto">
+                                <i data-lucide="upload-cloud" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-white font-semibold text-lg mb-2">Drop your profile image here</p>
+                                <p class="text-white/60 text-sm">or click to browse • JPG, PNG, WebP up to 10MB</p>
+                            </div>
+                            <input type="file" name="image" accept="image/*" required class="hidden" id="imageInput">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary w-full py-4 px-6 rounded-xl text-white font-semibold text-lg shadow-xl flex items-center justify-center space-x-3" id="analyzeBtn">
+                        <i data-lucide="zap" class="w-5 h-5"></i>
+                        <span>Analyze with AI</span>
+                    </button>
+                </form>
+                
+                <!-- Loading State -->
+                <div id="loadingState" class="hidden">
+                    <div class="flex items-center justify-center space-x-3 py-8">
+                        <div class="w-8 h-8 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        <span class="text-white/80 font-medium">Analyzing image with AI...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        {% if result %}
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 p-8">
+                <!-- Prediction Badge -->
+                <div class="text-center mb-8">
+                    <div class="{% if result.prediction == 'Fake' %}badge-danger{% else %}badge-success{% endif %} inline-flex items-center space-x-3 px-8 py-4 rounded-2xl text-white shadow-2xl">
+                        <i data-lucide="{% if result.prediction == 'Fake' %}alert-triangle{% else %}check-circle{% endif %}" class="w-6 h-6"></i>
+                        <span class="text-xl font-bold">{{ result.prediction }} Account</span>
+                    </div>
+                </div>
+
+                <!-- Confidence Score -->
+                <div class="bg-white/5 rounded-2xl p-6 mb-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-white font-semibold text-lg">AI Confidence Score</h3>
+                        <span class="text-2xl font-bold text-white">{{ result.confidence }}</span>
+                    </div>
+                    <div class="w-full bg-white/20 rounded-full h-4 overflow-hidden">
+                        <div class="confidence-fill h-full rounded-full flex items-center justify-center text-white text-sm font-medium" style="width: 85%">
+                            {{ result.confidence }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Details -->
+                <div>
+                    <h3 class="text-white font-semibold text-xl mb-6 flex items-center">
+                        <i data-lucide="bar-chart-3" class="w-6 h-6 mr-3"></i>
+                        Analysis Details
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {% for feature, value in result.features.items() %}
+                        <div class="feature-card bg-white/5 rounded-xl p-4 border border-white/10">
+                            <div class="text-white/60 text-sm font-medium mb-2 uppercase tracking-wide">{{ feature }}</div>
+                            <div class="text-white text-lg font-semibold">{{ value }}</div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-effect border-t border-white/20 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-white/60 text-sm mb-4 md:mb-0">
+                    © 2024 AI Account Guardian. Powered by advanced machine learning.
+                </div>
+                <div class="flex space-x-6">
+                    <a href="/" class="text-white/60 hover:text-white transition-colors">
+                        <i data-lucide="home" class="w-4 h-4"></i>
+                    </a>
+                    <a href="/predict" class="text-white/60 hover:text-white transition-colors">
+                        <i data-lucide="search" class="w-4 h-4"></i>
+                    </a>
+                    <a href="/graphs" class="text-white/60 hover:text-white transition-colors">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+                    </a>
+                    <a href="/shap" class="text-white/60 hover:text-white transition-colors">
+                        <i data-lucide="brain" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('imageInput');
+        const uploadForm = document.getElementById('uploadForm');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const loadingState = document.getElementById('loadingState');
+
+        // Click to upload
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && files[0].type.startsWith('image/')) {
+                fileInput.files = files;
+                updateUploadText(files[0].name);
+            }
+        });
+
+        // File selection
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                updateUploadText(e.target.files[0].name);
+            }
+        });
+
+        function updateUploadText(fileName) {
+            const uploadText = uploadArea.querySelector('p.font-semibold');
+            uploadText.textContent = `📎 ${fileName}`;
+        }
+
+        // Form submission
+        uploadForm.addEventListener('submit', () => {
+            analyzeBtn.disabled = true;
+            analyzeBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            analyzeBtn.querySelector('span').textContent = 'Analyzing...';
+            loadingState.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
